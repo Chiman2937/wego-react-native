@@ -1,4 +1,3 @@
-import '../styles/unistyles';
 import { Header } from '@/components/Header';
 import {
   DarkTheme,
@@ -14,9 +13,11 @@ export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1 }} edges={['top']}>
           <Header />
-          <Stack screenOptions={{ headerShown: false }} />
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          </Stack>
         </SafeAreaView>
       </ThemeProvider>
     </SafeAreaProvider>
