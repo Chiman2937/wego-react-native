@@ -1,20 +1,27 @@
 import { ListCard } from '@/components/groups/ListCard';
 import { mockGroups } from '@/mock/groups';
-import { View } from 'react-native';
+import { FlatList } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
 export default function Tab() {
   return (
-    <View style={styles.container}>
-      <ListCard group={mockGroups[0]} />
-    </View>
+    <FlatList
+      style={styles.container}
+      contentContainerStyle={styles.content}
+      data={mockGroups}
+      renderItem={({ item }) => <ListCard group={item} />}
+      keyExtractor={(item) => item.id.toString()}
+    />
   );
 }
 
 const styles = StyleSheet.create((theme) => ({
   container: {
     flex: 1,
+  },
+  content: {
     alignItems: 'center',
     padding: 16,
+    gap: 16,
   },
 }));
