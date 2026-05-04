@@ -1,9 +1,11 @@
 import { ListCard } from '@/components/groups/ListCard';
 import { SearchInput } from '@/components/groups/SearchInput';
+import { Text } from '@/components/Text';
 import { mockGroups } from '@/mock/groups';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { FlatList } from 'react-native';
+import debounce from 'lodash.debounce';
+import { useCallback, useEffect, useState } from 'react';
+import { FlatList, View } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
 export default function Tab() {
@@ -11,35 +13,71 @@ export default function Tab() {
   const router = useRouter();
   const [search, setSearch] = useState(searchParam ?? '');
 
+  const debouncedSetParams = useCallback(
+    debounce((t: string) => {
+      router.setParams({ search: t });
+    }, 300),
+    [],
+  );
+
   useEffect(() => {
     setSearch(searchParam ?? '');
   }, [searchParam]);
 
   const handleSearchChange = (t: string) => {
     setSearch(t);
-    router.setParams({ search: t });
+    debouncedSetParams(t);
   };
+
+  const nextGroups = mockGroups.filter((group) =>
+    group.title.includes(searchParam),
+  );
 
   return (
     <>
       <SearchInput onChangeText={(t) => handleSearchChange(t)} value={search} />
-      <FlatList
-        style={styles.container}
-        contentContainerStyle={styles.content}
-        data={mockGroups}
-        renderItem={({ item }) => <ListCard group={item} />}
-        keyExtractor={(item) => item.id.toString()}
-      />
+      <View style={styles.page}>
+        {searchParam !== '' && (
+          <View style={styles.searchResultContainer}>
+            <Text style={styles.searchResultCaption}>{`검색결과`}</Text>
+            <Text style={styles.searchResultValue}>
+              {nextGroups.length}
+              <Text style={styles.searchResultCaption}>개</Text>
+            </Text>
+          </View>
+        )}
+        <FlatList
+          style={styles.ListContainer}
+          contentContainerStyle={styles.ListContent}
+          data={nextGroups}
+          renderItem={({ item }) => <ListCard group={item} />}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      </View>
     </>
   );
 }
 
 const styles = StyleSheet.create((theme) => ({
-  container: {
+  page: {
+    padding: 16,
     flex: 1,
   },
-  content: {
-    padding: 16,
+  ListContainer: {
+    flex: 1,
+  },
+  searchResultContainer: {
+    paddingBottom: 12,
+    gap: 4,
+    flexDirection: 'row',
+  },
+  searchResultCaption: {
+    color: theme.colors['gray-800'],
+  },
+  searchResultValue: {
+    color: theme.colors['mint-600'],
+  },
+  ListContent: {
     gap: 16,
   },
 }));
