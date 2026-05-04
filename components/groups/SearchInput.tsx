@@ -1,14 +1,17 @@
-import { TextInput, View } from 'react-native';
+import { TextInput, TextInputProps, View } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 import { Icon } from '../Icon';
 
-export const SearchInput = () => {
+interface Props extends TextInputProps {}
+
+export const SearchInput = (props: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.textInputContainer}>
         <TextInput
           placeholder="원하는 모임을 검색해보세요"
           style={styles.textInput}
+          {...props}
         />
         <Icon id="search" style={styles.icon} />
       </View>
