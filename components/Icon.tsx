@@ -7,9 +7,11 @@ import IconMapPinFive from '@/assets/icons/icon-map-pin-5.svg';
 import IconMessageActive from '@/assets/icons/icon-message-active.svg';
 import IconMessageDefault from '@/assets/icons/icon-message-default.svg';
 import IconPost from '@/assets/icons/icon-plus-circle.svg';
+import IconSearch from '@/assets/icons/icon-search.svg';
 import IconUserOneActive from '@/assets/icons/icon-user-1-active.svg';
 import IconUserOneDefault from '@/assets/icons/icon-user-1-default.svg';
 import IconUserTwo from '@/assets/icons/icon-users-2.svg';
+import { StyleProp, ViewStyle } from 'react-native';
 
 const ICONS_MAP = {
   'home-default': IconHomeDefault,
@@ -24,15 +26,17 @@ const ICONS_MAP = {
   'user-2': IconUserTwo,
   'calendar-4': IconCalendarFour,
   'map-pin-5': IconMapPinFive,
+  search: IconSearch,
 };
 
 export type IconType = keyof typeof ICONS_MAP;
 
 interface IconProps {
   id: IconType;
+  style: StyleProp<ViewStyle>;
 }
 
-export const Icon = ({ id }: IconProps) => {
+export const Icon = ({ id, style }: IconProps) => {
   const IconComponent = ICONS_MAP[id];
-  return <IconComponent style={{ aspectRatio: 1, width: 24 }} />;
+  return <IconComponent style={[{ aspectRatio: 1, width: 24 }, style]} />;
 };
