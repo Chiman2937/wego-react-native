@@ -6,6 +6,8 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import debounce from 'lodash.debounce';
 import { useCallback, useEffect, useState } from 'react';
 import { FlatList, View } from 'react-native';
+import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StyleSheet } from 'react-native-unistyles';
 
 export default function Tab() {
@@ -29,15 +31,24 @@ export default function Tab() {
     debouncedSetParams(t);
   };
 
+  const insets = useSafeAreaInsets();
+
   const nextGroups = mockGroups.filter((group) =>
-    group.title.includes(searchParam),
+    group.title.includes(searchParam ?? ''),
   );
 
   return (
     <>
-      <SearchInput onChangeText={(t) => handleSearchChange(t)} value={search} />
-      <View style={styles.page}>
-        {searchParam !== '' && (
+      <KeyboardAvoidingView
+        behavior="padding"
+        style={styles.page}
+        keyboardVerticalOffset={insets.top + 56}
+      >
+        <SearchInput
+          onChangeText={(t) => handleSearchChange(t)}
+          value={search}
+        />
+        {searchParam && (
           <View style={styles.searchResultContainer}>
             <Text style={styles.searchResultCaption}>{`검색결과`}</Text>
             <Text style={styles.searchResultValue}>
@@ -53,17 +64,17 @@ export default function Tab() {
           renderItem={({ item }) => <ListCard group={item} />}
           keyExtractor={(item) => item.id.toString()}
         />
-      </View>
+      </KeyboardAvoidingView>
     </>
   );
 }
 
 const styles = StyleSheet.create((theme) => ({
   page: {
-    padding: 16,
     flex: 1,
   },
   ListContainer: {
+    padding: 16,
     flex: 1,
   },
   searchResultContainer: {
@@ -79,5 +90,6 @@ const styles = StyleSheet.create((theme) => ({
   },
   ListContent: {
     gap: 16,
+    paddingBottom: 16,
   },
 }));
