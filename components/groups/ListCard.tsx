@@ -35,7 +35,12 @@ export const ListCard = ({ group }: Props) => {
           </View>
           <View style={styles.meta}>
             <Icon id="map-pin-5" />
-            <Text style={styles.metaText} variant="text-xs-regular">
+            <Text
+              style={styles.metaText}
+              variant="text-xs-regular"
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
               {group.address}
             </Text>
           </View>
@@ -123,6 +128,7 @@ const styles = StyleSheet.create((theme) => ({
   },
   metaText: {
     color: theme.colors['gray-700'],
+    flexShrink: 1,
   },
   footer: {
     flexDirection: 'row',
