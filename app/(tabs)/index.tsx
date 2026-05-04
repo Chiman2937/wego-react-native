@@ -20,7 +20,6 @@ const styles = StyleSheet.create((theme) => ({
     flex: 1,
   },
   content: {
-    alignItems: 'center',
     padding: 16,
     gap: 16,
   },
