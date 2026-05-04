@@ -4,9 +4,15 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from '@react-navigation/native';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import { Stack } from 'expo-router';
 import { useColorScheme } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+
+dayjs.extend(relativeTime);
+dayjs.locale('ko');
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
