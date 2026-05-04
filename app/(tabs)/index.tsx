@@ -3,32 +3,12 @@ import { SearchInput } from '@/components/groups/SearchInput';
 import { PageLayout } from '@/components/PageLayout';
 import { Text } from '@/components/Text';
 import { mockGroups } from '@/mock/groups';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import debounce from 'lodash.debounce';
-import { useCallback, useEffect, useState } from 'react';
+import { useLocalSearchParams } from 'expo-router';
 import { FlatList, View } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
 export default function Tab() {
   const { search: searchParam } = useLocalSearchParams<{ search: string }>();
-  const router = useRouter();
-  const [search, setSearch] = useState(searchParam ?? '');
-
-  const debouncedSetParams = useCallback(
-    debounce((t: string) => {
-      router.setParams({ search: t });
-    }, 300),
-    [],
-  );
-
-  useEffect(() => {
-    setSearch(searchParam ?? '');
-  }, [searchParam]);
-
-  const handleSearchChange = (t: string) => {
-    setSearch(t);
-    debouncedSetParams(t);
-  };
 
   const nextGroups = mockGroups.filter((group) =>
     group.title.includes(searchParam ?? ''),
@@ -36,7 +16,7 @@ export default function Tab() {
 
   return (
     <PageLayout>
-      <SearchInput onChangeText={(t) => handleSearchChange(t)} value={search} />
+      <SearchInput searchParam={searchParam} />
       {searchParam && (
         <View style={styles.searchResultContainer}>
           <Text style={styles.searchResultCaption}>{`검색결과`}</Text>
@@ -66,7 +46,8 @@ const styles = StyleSheet.create((theme) => ({
     flex: 1,
   },
   searchResultContainer: {
-    paddingBottom: 12,
+    padding: 16,
+    paddingBottom: 0,
     gap: 4,
     flexDirection: 'row',
   },
