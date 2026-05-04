@@ -4,7 +4,8 @@ import { mockUsers } from './users';
 export const mockGroups: Group[] = [
   {
     id: 1,
-    title: '서울 아침 러닝 클럽',
+    title:
+      '서울 아침 러닝 클럽 서울 아침 러닝 클럽 서울 아침 러닝 클럽 서울 아침 러닝 클럽',
     tags: ['러닝', '아침운동', '건강'],
     address: '서울특별시 마포구 상암동 월드컵공원',
     createdBy: mockUsers[0],

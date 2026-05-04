@@ -14,8 +14,13 @@ export const ListCard = ({ group }: Props) => {
     <View style={styles.container}>
       <View style={styles.group}>
         <Image source={group.thumbnail} style={styles.groupImage} />
-        <View>
-          <Text variant="text-md-semibold" style={styles.groupTitle}>
+        <View style={styles.groupContent}>
+          <Text
+            variant="text-md-semibold"
+            style={styles.groupTitle}
+            numberOfLines={2}
+            ellipsizeMode="tail"
+          >
             {group.title}
           </Text>
           <View style={styles.tags}>
@@ -75,7 +80,6 @@ export const ListCard = ({ group }: Props) => {
 
 const styles = StyleSheet.create((theme) => ({
   container: {
-    width: '100%',
     borderRadius: 24,
     backgroundColor: theme.colors['mono-white'],
     padding: 16,
@@ -90,7 +94,9 @@ const styles = StyleSheet.create((theme) => ({
     width: 100,
     borderRadius: 16,
   },
-  groupContent: {},
+  groupContent: {
+    flex: 1,
+  },
   groupTitle: {
     color: theme.colors['gray-800'],
     marginBottom: 4,
