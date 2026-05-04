@@ -1,4 +1,5 @@
 import { Group } from '@/api/types/groups';
+import dayjs from 'dayjs';
 import { Image } from 'expo-image';
 import { View } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
@@ -41,7 +42,7 @@ export const ListCard = ({ group }: Props) => {
           <View style={styles.meta}>
             <Icon id="calendar-4" />
             <Text style={styles.metaText} variant="text-xs-regular">
-              {group.startedAt}
+              {dayjs(group.startedAt).tz().format('YY. MM. DD - HH:mm')}
             </Text>
           </View>
         </View>
