@@ -1,5 +1,6 @@
 import { DuplicateCheckInput } from '@/components/auth/DuplicateCheckInput';
 import { PasswordInput } from '@/components/auth/PasswordInput';
+import { Checkbox } from '@/components/CheckBox';
 import { Hint } from '@/components/fields/Hint';
 import { Label } from '@/components/fields/Label';
 import { Logo } from '@/components/Logo';
@@ -16,6 +17,7 @@ export default function Signup() {
     nickname: z.string().min(1, '닉네임을 입력해주세요'),
     password: z.string().min(8, '8자 이상 입력해주세요'),
     passwordConfirm: z.string().min(8, '8자 이상 입력해주세요'),
+    termAgree: z.boolean().refine((val) => val === true, '약관에 동의해주세요'),
   });
 
   const form = useForm({
@@ -24,6 +26,7 @@ export default function Signup() {
       nickname: '',
       password: '',
       passwordConfirm: '',
+      termAgree: false,
     },
     onSubmit: async ({ value }) => {
       // Do something with form data
@@ -101,11 +104,42 @@ export default function Signup() {
             )}
           </form.Field>
         </View>
-        <Pressable onPress={form.handleSubmit} style={styles.submitButton}>
-          <Text variant="text-md-bold" style={styles.submitText}>
-            회원가입 하기
-          </Text>
-        </Pressable>
+        <View style={styles.term}>
+          <form.Field
+            name="termAgree"
+            validators={{ onChange: schema.shape.termAgree }}
+          >
+            {(field) => (
+              <View style={styles.termField}>
+                <Checkbox
+                  isChecked={field.state.value}
+                  onPress={() => field.handleChange(!field.state.value)}
+                  title={'서비스 이용약관에 동의합니다'}
+                />
+                <Hint field={field} />
+              </View>
+            )}
+          </form.Field>
+          <Pressable>
+            <Text variant="text-sm-medium" style={styles.termShowButtonText}>
+              보기
+            </Text>
+          </Pressable>
+        </View>
+        <form.Subscribe
+          selector={(state) => [state.canSubmit, state.isSubmitting]}
+          children={([canSubmit, isSubmitting]) => (
+            <Pressable
+              onPress={form.handleSubmit}
+              style={styles.submitButton}
+              disabled={!canSubmit}
+            >
+              <Text variant="text-md-bold" style={styles.submitText}>
+                {!isSubmitting ? '회원가입 하기' : '...'}
+              </Text>
+            </Pressable>
+          )}
+        />
       </ScrollView>
     </PageLayout>
   );
@@ -121,6 +155,22 @@ const styles = StyleSheet.create((theme) => ({
   },
   fields: {
     gap: 16,
+    paddingBottom: 32,
+  },
+  term: {
+    flexDirection: 'row',
+  },
+  termField: {
+    paddingBottom: 16,
+    flex: 1,
+  },
+  termText: {
+    color: theme.colors['gray-700'],
+    flex: 1,
+  },
+  termShowButtonText: {
+    color: theme.colors['gray-500'],
+    textDecorationLine: 'underline',
   },
   submitButton: {
     height: 52,
