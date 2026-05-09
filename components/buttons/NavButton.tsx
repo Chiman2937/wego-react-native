@@ -1,7 +1,7 @@
 import { NavRouteType } from '@/app/(tabs)/_layout';
 import { Pressable } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
-import { Icon, IconType } from './Icon';
+import { Icon, IconType } from '../Icon';
 
 const iconIdMap: Record<NavRouteType, Record<'true' | 'false', IconType>> = {
   index: {

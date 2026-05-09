@@ -2,7 +2,7 @@ import { NavRouteType } from '@/app/(tabs)/_layout';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { View } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
-import { NavButton } from './NavButton';
+import { NavButton } from './buttons/NavButton';
 
 export const Footer = ({ state, navigation }: BottomTabBarProps) => {
   return (
