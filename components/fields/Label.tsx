@@ -3,16 +3,16 @@ import { StyleSheet } from 'react-native-unistyles';
 import { Text } from '../Text';
 
 interface Props extends TextProps {
-  isRequired: boolean;
+  required: boolean;
 }
 
-export const Label = ({ isRequired, children, ...props }: Props) => {
+export const Label = ({ required, children, ...props }: Props) => {
   return (
     <View style={styles.container}>
       <Text variant="text-sm-medium" style={styles.text} {...props}>
         {children}
       </Text>
-      {isRequired && <Text style={styles.required}>*</Text>}
+      {required && <Text style={styles.required}>*</Text>}
     </View>
   );
 };

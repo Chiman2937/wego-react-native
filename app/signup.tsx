@@ -40,7 +40,7 @@ export default function Signup() {
           >
             {(field) => (
               <View>
-                <Label isRequired>이메일</Label>
+                <Label required>이메일</Label>
                 <DuplicateCheckInput
                   field={field}
                   placeholder="이메일을 입력해주세요"
@@ -56,7 +56,7 @@ export default function Signup() {
           >
             {(field) => (
               <View>
-                <Label isRequired>닉네임</Label>
+                <Label required>닉네임</Label>
                 <DuplicateCheckInput
                   field={field}
                   placeholder="닉네임을 입력해주세요"
@@ -72,7 +72,7 @@ export default function Signup() {
           >
             {(field) => (
               <View>
-                <Label isRequired>비밀번호</Label>
+                <Label required>비밀번호</Label>
                 <PasswordInput
                   field={field}
                   placeholder="비밀번호를 입력해주세요"
@@ -87,7 +87,7 @@ export default function Signup() {
           >
             {(field) => (
               <View>
-                <Label isRequired>비밀번호 확인</Label>
+                <Label required>비밀번호 확인</Label>
                 <PasswordInput
                   field={field}
                   placeholder="비밀번호를 한번 더 입력해주세요"
