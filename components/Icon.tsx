@@ -1,6 +1,8 @@
 import IconCalendarActive from '@/assets/icons/icon-calendar-1-active.svg';
 import IconCalendarDefault from '@/assets/icons/icon-calendar-1-default.svg';
 import IconCalendarFour from '@/assets/icons/icon-calendar-4.svg';
+import IconCheckActive from '@/assets/icons/icon-check-active.svg';
+import IconCheckDefault from '@/assets/icons/icon-check-default.svg';
 import IconHomeActive from '@/assets/icons/icon-home-active.svg';
 import IconHomeDefault from '@/assets/icons/icon-home-default.svg';
 import IconMapPinFive from '@/assets/icons/icon-map-pin-5.svg';
@@ -32,6 +34,8 @@ const ICONS_MAP = {
   search: IconSearch,
   visible: IconVisible,
   hidden: IconHidden,
+  'check-default': IconCheckDefault,
+  'check-active': IconCheckActive,
 };
 
 export type IconType = keyof typeof ICONS_MAP;
