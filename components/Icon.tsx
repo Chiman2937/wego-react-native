@@ -11,6 +11,9 @@ import IconSearch from '@/assets/icons/icon-search.svg';
 import IconUserOneActive from '@/assets/icons/icon-user-1-active.svg';
 import IconUserOneDefault from '@/assets/icons/icon-user-1-default.svg';
 import IconUserTwo from '@/assets/icons/icon-users-2.svg';
+import IconHidden from '@/assets/icons/icon-visible-false.svg';
+import IconVisible from '@/assets/icons/icon-visible-true.svg';
+
 import { StyleProp, ViewStyle } from 'react-native';
 
 const ICONS_MAP = {
@@ -27,13 +30,15 @@ const ICONS_MAP = {
   'calendar-4': IconCalendarFour,
   'map-pin-5': IconMapPinFive,
   search: IconSearch,
+  visible: IconVisible,
+  hidden: IconHidden,
 };
 
 export type IconType = keyof typeof ICONS_MAP;
 
 interface IconProps {
   id: IconType;
-  style: StyleProp<ViewStyle>;
+  style?: StyleProp<ViewStyle>;
 }
 
 export const Icon = ({ id, style }: IconProps) => {
