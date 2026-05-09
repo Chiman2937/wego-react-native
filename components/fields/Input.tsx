@@ -34,6 +34,7 @@ const styles = StyleSheet.create((theme) => ({
     gap: 4,
     minHeight: 56,
     alignItems: 'center',
+    color: theme.colors['gray-800'],
   },
   input: {
     flex: 1,
