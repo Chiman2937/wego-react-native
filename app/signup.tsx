@@ -2,6 +2,7 @@ import { DuplicateCheckInput } from '@/components/auth/DuplicateCheckInput';
 import { PasswordInput } from '@/components/auth/PasswordInput';
 import { Hint } from '@/components/fields/Hint';
 import { Label } from '@/components/fields/Label';
+import { Logo } from '@/components/Logo';
 import { PageLayout } from '@/components/PageLayout';
 import { Text } from '@/components/Text';
 import { useForm } from '@tanstack/react-form';
@@ -33,6 +34,9 @@ export default function Signup() {
   return (
     <PageLayout>
       <ScrollView style={styles.container}>
+        <View style={styles.logo}>
+          <Logo variant="lg" />
+        </View>
         <View style={styles.fields}>
           <form.Field
             name="email"
@@ -110,6 +114,10 @@ export default function Signup() {
 const styles = StyleSheet.create((theme) => ({
   container: {
     padding: 16,
+  },
+  logo: {
+    alignItems: 'center',
+    paddingBottom: 16,
   },
   fields: {
     gap: 16,
