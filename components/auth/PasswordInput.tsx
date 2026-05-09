@@ -13,9 +13,7 @@ export const PasswordInput = ({ field, ...props }: Props) => {
 
   return (
     <Input
-      value={field.state.value}
-      onChangeText={field.handleChange}
-      onBlur={field.handleBlur}
+      field={field}
       secureTextEntry={!visible}
       rightButton={
         <Pressable onPress={() => setVisible((prev) => !prev)}>

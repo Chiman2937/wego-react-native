@@ -1,18 +1,23 @@
 import { useTheme } from '@/hooks/use-theme';
+import { AnyFieldApi } from '@tanstack/react-form';
 import { TextInputProps, View } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 import { TextInput } from '../TextInput';
 
 interface Props extends TextInputProps {
+  field: AnyFieldApi;
   rightButton?: React.ReactElement;
 }
 
-export const Input = ({ rightButton, ...props }: Props) => {
+export const Input = ({ field, rightButton, ...props }: Props) => {
   const theme = useTheme();
 
   return (
     <View style={styles.container}>
       <TextInput
+        value={field.state.value}
+        onChangeText={field.handleChange}
+        onBlur={field.handleBlur}
         style={styles.input}
         variant="text-md-medium"
         placeholderTextColor={theme['gray-500']}

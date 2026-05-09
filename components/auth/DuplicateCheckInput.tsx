@@ -16,9 +16,7 @@ export const DuplicateCheckInput = ({ field, ...props }: Props) => {
 
   return (
     <Input
-      value={field.state.value}
-      onChangeText={field.handleChange}
-      onBlur={field.handleBlur}
+      field={field}
       rightButton={
         <Pressable style={styles.button}>
           <Text
