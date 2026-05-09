@@ -1,14 +1,14 @@
 import { Footer } from '@/components/auth/Footer';
 import { PasswordInput } from '@/components/auth/PasswordInput';
+import { Button } from '@/components/Button';
 import { Hint } from '@/components/fields/Hint';
 import { Input } from '@/components/fields/Input';
 import { Label } from '@/components/fields/Label';
 import { Logo } from '@/components/Logo';
 import { PageLayout } from '@/components/PageLayout';
-import { Text } from '@/components/Text';
 import { useForm } from '@tanstack/react-form';
 import { useRouter } from 'expo-router';
-import { Pressable, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 import { z } from 'zod';
 
@@ -74,15 +74,13 @@ export default function Login() {
           <form.Subscribe
             selector={(state) => [state.canSubmit, state.isSubmitting]}
             children={([canSubmit, isSubmitting]) => (
-              <Pressable
-                onPress={form.handleSubmit}
-                style={styles.submitButton}
+              <Button
+                title={!isSubmitting ? '로그인하기' : '...'}
+                variant="primary"
+                size="md"
                 disabled={!canSubmit}
-              >
-                <Text variant="text-md-bold" style={styles.submitText}>
-                  {!isSubmitting ? '로그인하기' : '...'}
-                </Text>
-              </Pressable>
+                onPress={form.handleSubmit}
+              />
             )}
           />
         </View>

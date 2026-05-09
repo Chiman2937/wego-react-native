@@ -1,6 +1,7 @@
 import { DuplicateCheckInput } from '@/components/auth/DuplicateCheckInput';
 import { Footer } from '@/components/auth/Footer';
 import { PasswordInput } from '@/components/auth/PasswordInput';
+import { Button } from '@/components/Button';
 import { Checkbox } from '@/components/CheckBox';
 import { Hint } from '@/components/fields/Hint';
 import { Label } from '@/components/fields/Label';
@@ -133,15 +134,13 @@ export default function Signup() {
           <form.Subscribe
             selector={(state) => [state.canSubmit, state.isSubmitting]}
             children={([canSubmit, isSubmitting]) => (
-              <Pressable
-                onPress={form.handleSubmit}
-                style={styles.submitButton}
+              <Button
+                title={!isSubmitting ? '회원가입하기' : '...'}
+                variant="primary"
+                size="md"
                 disabled={!canSubmit}
-              >
-                <Text variant="text-md-bold" style={styles.submitText}>
-                  {!isSubmitting ? '회원가입 하기' : '...'}
-                </Text>
-              </Pressable>
+                onPress={form.handleSubmit}
+              />
             )}
           />
         </View>
