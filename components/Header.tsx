@@ -1,15 +1,21 @@
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 
 // import IconBell from '@/assets/icons/icon-bell.svg';
-import IconLogo from '@/assets/icons/icon-logo.svg';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { StyleSheet } from 'react-native-unistyles';
+import { Logo } from './Logo';
 import { Text } from './Text';
 
 export const Header = () => {
+  const router = useRouter();
+  const onLogoPress = () => {
+    router.push('/');
+  };
   return (
     <View accessibilityRole="header" style={styles.container}>
-      <IconLogo />
+      <Pressable onPress={onLogoPress}>
+        <Logo variant="sm" />
+      </Pressable>
       {/* <IconBell /> */}
       <Link href={'/signup'}>
         <Text variant="text-sm-semibold" style={styles.text}>
