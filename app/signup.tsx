@@ -1,4 +1,5 @@
 import { DuplicateCheckInput } from '@/components/auth/DuplicateCheckInput';
+import { Footer } from '@/components/auth/Footer';
 import { PasswordInput } from '@/components/auth/PasswordInput';
 import { Checkbox } from '@/components/CheckBox';
 import { Hint } from '@/components/fields/Hint';
@@ -7,11 +8,13 @@ import { Logo } from '@/components/Logo';
 import { PageLayout } from '@/components/PageLayout';
 import { Text } from '@/components/Text';
 import { useForm } from '@tanstack/react-form';
+import { useRouter } from 'expo-router';
 import { Pressable, ScrollView, View } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 import { z } from 'zod';
 
 export default function Signup() {
+  const router = useRouter();
   const schema = z.object({
     email: z.email('올바른 이메일을 입력해주세요'),
     nickname: z.string().min(1, '닉네임을 입력해주세요'),
@@ -126,20 +129,29 @@ export default function Signup() {
             </Text>
           </Pressable>
         </View>
-        <form.Subscribe
-          selector={(state) => [state.canSubmit, state.isSubmitting]}
-          children={([canSubmit, isSubmitting]) => (
-            <Pressable
-              onPress={form.handleSubmit}
-              style={styles.submitButton}
-              disabled={!canSubmit}
-            >
-              <Text variant="text-md-bold" style={styles.submitText}>
-                {!isSubmitting ? '회원가입 하기' : '...'}
-              </Text>
-            </Pressable>
-          )}
-        />
+        <View style={styles.buttonContainer}>
+          <form.Subscribe
+            selector={(state) => [state.canSubmit, state.isSubmitting]}
+            children={([canSubmit, isSubmitting]) => (
+              <Pressable
+                onPress={form.handleSubmit}
+                style={styles.submitButton}
+                disabled={!canSubmit}
+              >
+                <Text variant="text-md-bold" style={styles.submitText}>
+                  {!isSubmitting ? '회원가입 하기' : '...'}
+                </Text>
+              </Pressable>
+            )}
+          />
+        </View>
+        <View style={styles.footerContainer}>
+          <Footer
+            title="이미 회원이신가요?"
+            rightButtonText="로그인하기"
+            onPress={() => router.replace('/login')}
+          />
+        </View>
       </ScrollView>
     </PageLayout>
   );
@@ -172,6 +184,9 @@ const styles = StyleSheet.create((theme) => ({
     color: theme.colors['gray-500'],
     textDecorationLine: 'underline',
   },
+  buttonContainer: {
+    paddingBottom: 40,
+  },
   submitButton: {
     height: 52,
     alignItems: 'center',
@@ -181,5 +196,8 @@ const styles = StyleSheet.create((theme) => ({
   },
   submitText: {
     color: theme.colors['mono-white'],
+  },
+  footerContainer: {
+    alignItems: 'center',
   },
 }));
