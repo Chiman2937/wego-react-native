@@ -15,6 +15,7 @@ import IconUserOneDefault from '@/assets/icons/icon-user-1-default.svg';
 import IconUserTwo from '@/assets/icons/icon-users-2.svg';
 import IconHidden from '@/assets/icons/icon-visible-false.svg';
 import IconVisible from '@/assets/icons/icon-visible-true.svg';
+import IconX1 from '@/assets/icons/icon-x-1.svg';
 
 import { StyleProp, ViewStyle } from 'react-native';
 
@@ -36,6 +37,7 @@ const ICONS_MAP = {
   hidden: IconHidden,
   'check-default': IconCheckDefault,
   'check-active': IconCheckActive,
+  x1: IconX1,
 };
 
 export type IconType = keyof typeof ICONS_MAP;
