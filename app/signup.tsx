@@ -6,16 +6,19 @@ import { Checkbox } from '@/components/CheckBox';
 import { Hint } from '@/components/fields/Hint';
 import { Label } from '@/components/fields/Label';
 import { Logo } from '@/components/Logo';
+import { TermsModal } from '@/components/modals/TermsModal';
 import { PageLayout } from '@/components/PageLayout';
 import { Text } from '@/components/Text';
 import { useForm } from '@tanstack/react-form';
 import { useRouter } from 'expo-router';
+import { useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 import { z } from 'zod';
 
 export default function Signup() {
   const router = useRouter();
+  const [isOpenTermsModal, setIsOpenTermsModal] = useState(false);
   const schema = z.object({
     email: z.email('올바른 이메일을 입력해주세요'),
     nickname: z.string().min(1, '닉네임을 입력해주세요'),
@@ -37,6 +40,11 @@ export default function Signup() {
       console.log(value);
     },
   });
+
+  const handleOpenTermsModalPress = () => {
+    console.log('a');
+    setIsOpenTermsModal(true);
+  };
 
   return (
     <PageLayout>
@@ -115,20 +123,22 @@ export default function Signup() {
           >
             {(field) => (
               <View style={styles.termField}>
-                <Checkbox
-                  isChecked={field.state.value}
-                  onPress={() => field.handleChange(!field.state.value)}
-                  title={'서비스 이용약관에 동의합니다'}
-                />
+                <View style={styles.termRow}>
+                  <Checkbox
+                    isChecked={field.state.value}
+                    onPress={() => field.handleChange(!field.state.value)}
+                    title={'서비스 이용약관에 동의합니다'}
+                  />
+                  <Pressable onPress={handleOpenTermsModalPress}>
+                    <Text variant="text-sm-medium" style={styles.termShowButtonText}>
+                      보기
+                    </Text>
+                  </Pressable>
+                </View>
                 <Hint field={field} />
               </View>
             )}
           </form.Field>
-          <Pressable>
-            <Text variant="text-sm-medium" style={styles.termShowButtonText}>
-              보기
-            </Text>
-          </Pressable>
         </View>
         <View style={styles.buttonContainer}>
           <form.Subscribe
@@ -152,6 +162,10 @@ export default function Signup() {
           />
         </View>
       </ScrollView>
+      <TermsModal
+        visible={isOpenTermsModal}
+        onClose={() => setIsOpenTermsModal(false)}
+      />
     </PageLayout>
   );
 }
@@ -168,8 +182,10 @@ const styles = StyleSheet.create((theme) => ({
     gap: 16,
     paddingBottom: 32,
   },
-  term: {
+  term: {},
+  termRow: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
   termField: {
     paddingBottom: 16,
